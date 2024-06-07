@@ -1,42 +1,38 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-interface RegisterProps {
-  onRegister: () => void;
-}
-
-const Register: React.FC<RegisterProps> = ({ onRegister }) => {
+const Register: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    const userExists = users.find((user: { username: string }) => user.username === username);
-
-    if (userExists) {
-      alert('Usuário já existe');
-    } else {
-      users.push({ username, password });
-      localStorage.setItem('users', JSON.stringify(users));
-      onRegister();
-    }
+    const users = JSON.parse(localStorage.getItem('users') || '{}');
+    users[username] = password;
+    localStorage.setItem('users', JSON.stringify(users));
+    navigate('/'); // Navegar de volta para a página de login após o registro
   };
 
   return (
     <div>
-      <h2>Registrar</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Usuário:</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-        </div>
-        <div>
-          <label>Senha:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </div>
+      <h2>Registro</h2>
+      <form onSubmit={handleRegister}>
+        <input
+          type="text"
+          placeholder="Usuário"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <button type="submit">Registrar</button>
       </form>
+      <button onClick={() => navigate('/')}>Voltar para o Login</button> {/* Botão para voltar para a página de login */}
     </div>
   );
 };
