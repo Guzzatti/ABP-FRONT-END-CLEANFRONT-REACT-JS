@@ -1,6 +1,6 @@
-# Projeto ABP de Front End - Cleanfront  
+## [![Typing SVG](https://readme-typing-svg.herokuapp.com/?color=000000&size=35&left=true&vCenter=true&width=1000&lines=Projeto+Abp+de+Front+End;Cleanfront+:%29)](https://git.io/typing-svg)
 
-Este é um projeto de frontend utilizando Next.js, Prisma, e Typescript (opcional).
+Este é um projeto de frontend utilizando React.js e Vite
 
 ## Autores
 
@@ -56,8 +56,7 @@ O Cleanfront é direcionado a profissionais e equipes que buscam uma maneira efi
 
 ## Tecnologias Utilizadas
 
-- Next.js
-- Prisma
+- React.js
 - Typescript
 - HTML
 - TailwindCSS
