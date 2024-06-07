@@ -1,0 +1,26 @@
+.board {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.list {
+  width: 30%;
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.task-list {
+  min-height: 100px;
+}
+
+.task {
+  background-color: white;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  padding: 8px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
