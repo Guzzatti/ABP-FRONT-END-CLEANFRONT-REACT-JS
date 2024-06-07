@@ -39,7 +39,7 @@ Apresenta uma visão geral das tarefas do usuário, incluindo uma saudação per
 
 ## Cliente/Público-alvo
 
-O Cleanfront é direcionado a profissionais e equipes que buscam uma maneira eficiente de organizar suas tarefas e projetos. Desde freelancers até equipes corporativas, nosso público-alvo valoriza a simplicidade e a praticidade na gestão de suas atividades diárias.
+O Cleanfront é direcionado a profissionais e equipes que buscam uma maneira eficiente de organizar suas tarefas e projetos. Desde freelancers até equipes corporativas, nosso público-alvo valoriza a simplicidade e a praticidade na gestão de suas atividades diárias. Este projeto é uma aplicação de gerenciamento de tarefas estilo Trello, construída com React e Vite. Ele inclui funcionalidades de autenticação simples (registro e login) utilizando localStorage, e um dashboard onde os usuários podem gerenciar suas tarefas com a funcionalidade de arrastar e soltar.
 
 ### Principais Características
 
@@ -56,10 +56,11 @@ O Cleanfront é direcionado a profissionais e equipes que buscam uma maneira efi
 
 ## Tecnologias Utilizadas
 
-- React.js
-- Typescript
-- HTML
-- TailwindCSS
+- React
+- Vite
+- TypeScript
+- react-beautiful-dnd para funcionalidade de arrastar e soltar
+- CSS para estilização
 
 ## Como Executar
 
