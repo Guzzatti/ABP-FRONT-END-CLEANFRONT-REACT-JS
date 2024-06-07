@@ -1,48 +1,88 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import { v4 as uuidv4 } from 'uuid';
 
-const Login: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  dueDate: string;
+  priority: string;
+}
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+interface Column {
+  id: string;
+  title: string;
+  taskIds: string[];
+}
 
-    const storedUsers = localStorage.getItem('users');
-    if (storedUsers) {
-      const users = JSON.parse(storedUsers);
-      const user = users.find((u: any) => u.username === username && u.password === password);
-      if (user) {
-        localStorage.setItem('loggedInUser', username);
-        navigate('/dashboard');
-      } else {
-        alert('Usuário ou senha incorretos');
-      }
-    }
-  };
+interface InitialData {
+  tasks: { [key: string]: Task };
+  columns: { [key: string]: Column };
+  columnOrder: string[];
+}
 
-  return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Usuário"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Entrar</button>
-      </form>
-      <button onClick={() => navigate('/register')}>Registrar</button>
-    </div>
-  );
+const initialData: InitialData = {
+  tasks: {},
+  columns: {
+    'column-1': {
+      id: 'column-1',
+      title: 'To Do',
+      taskIds: [],
+    },
+    'column-2': {
+      id: 'column-2',
+      title: 'In Progress',
+      taskIds: [],
+    },
+    'column-3': {
+      id: 'column-3',
+      title: 'Done',
+      taskIds: [],
+    },
+  },
+  columnOrder: ['column-1', 'column-2', 'column-3'],
 };
 
-export default Login;
+const Dashboard: React.FC = () => {
+  const [data, setData] = useState(initialData);
+  const [newTask, setNewTask] = useState({ title: '', description: '', dueDate: '', priority: 'low' });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setNewTask({ ...newTask, [name]: value });
+  };
+
+  const handleCreateTask = () => {
+    const id = uuidv4();
+    const newTaskObject = {
+      id,
+      ...newTask,
+    };
+
+    setData((prevData) => {
+      const newTasks = {
+        ...prevData.tasks,
+        [id]: newTaskObject,
+      };
+
+      const newColumn = {
+        ...prevData.columns['column-1'],
+        taskIds: [...prevData.columns['column-1'].taskIds, id],
+      };
+
+      return {
+        ...prevData,
+        tasks: newTasks,
+        columns: {
+          ...prevData.columns,
+          ['column-1']: newColumn,
+        },
+      };
+    });
+
+    setNewTask({ title: '', description: '', dueDate: '', priority: 'low' });
+  };
+
+  const handleEditTask = (taskId: string) => {
+    const task = data.tasks[task
