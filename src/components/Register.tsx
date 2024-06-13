@@ -1,3 +1,4 @@
+// src/components/Register.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +12,15 @@ const Register: React.FC = () => {
     const users = JSON.parse(localStorage.getItem('users') || '{}');
     users[username] = password;
     localStorage.setItem('users', JSON.stringify(users));
-    navigate('/'); // Navegar de volta para a página de login após o registro
+    navigate('/'); // Navegar de volta para a página inicial após o registro
+  };
+
+  const handleGoToLogin = () => {
+    navigate('/login');
+  };
+
+  const handleGoToDashboard = () => {
+    navigate('/dashboard');
   };
 
   return (
@@ -23,16 +32,21 @@ const Register: React.FC = () => {
           placeholder="Usuário"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
         <input
           type="password"
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
         <button type="submit">Registrar</button>
       </form>
-      <button onClick={() => navigate('/')}>Voltar para o Login</button> {/* Botão para voltar para a página de login */}
+      <div>
+        <button onClick={handleGoToLogin}>Ir para Login</button>
+        <button onClick={handleGoToDashboard}>Ir para Dashboard</button>
+      </div>
     </div>
   );
 };

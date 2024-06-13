@@ -1,6 +1,8 @@
+// src/components/Dashboard.tsx
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 interface Task {
   id: string;
@@ -46,7 +48,18 @@ const initialData: InitialData = {
 
 const Dashboard: React.FC = () => {
   const [data, setData] = useState(initialData);
-  const [newTask, setNewTask] = useState({ title: '', description: '', dueDate: '', priority: 'low' });
+  const navigate = useNavigate();
+  const [newTask, setNewTask] = useState({
+    title: '',
+    description: '',
+    dueDate: '',
+    priority: 'low',
+  });
+
+  const handleLogout = () => {
+    localStorage.removeItem('loggedInUser');
+    navigate('/');
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -140,10 +153,7 @@ const Dashboard: React.FC = () => {
       return;
     }
 
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
       return;
     }
 
@@ -275,6 +285,7 @@ const Dashboard: React.FC = () => {
           })}
         </div>
       </DragDropContext>
+      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };
