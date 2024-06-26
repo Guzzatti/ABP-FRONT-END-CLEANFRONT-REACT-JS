@@ -1,4 +1,3 @@
-// src/components/Dashboard.tsx
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
@@ -235,3 +234,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
