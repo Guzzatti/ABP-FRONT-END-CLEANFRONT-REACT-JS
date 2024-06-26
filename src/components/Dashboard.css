@@ -48,6 +48,9 @@
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .task h4 {
@@ -60,7 +63,6 @@
   }
   
   .task button {
-    margin-left: 10px;
     padding: 8px 15px;
     background-color: #007bff;
     color: white;
@@ -79,11 +81,15 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
   .task-inputs input,
   .task-inputs select {
-    flex: 1 1 300px; /* Faz com que os inputs e selects se expandam conforme necessário */
+    flex: 1 1 100%; /* Expande para ocupar todo o espaço disponível */
     max-width: 100%; /* Ajusta para o tamanho disponível */
     padding: 10px;
     border: 1px solid #ccc;
@@ -117,5 +123,51 @@
   
   .logout-btn:hover {
     background-color: #c82333;
+  }
+  
+  /* Estilos para o overlay do modal */
+  .ReactModal__Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+    z-index: 1000; /* Z-index alto para sobrepor o conteúdo */
+  }
+  
+  /* Estilos para o conteúdo do modal */
+  .ReactModal__Content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px; /* Largura do modal */
+    max-width: calc(100% - 40px); /* Largura máxima ajustada para o tamanho do conteúdo */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Estilos para os botões dentro do modal */
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .modal-buttons button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-buttons button:hover {
+    background-color: #0056b3;
   }
   
