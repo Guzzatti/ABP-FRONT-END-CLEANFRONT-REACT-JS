@@ -4,6 +4,8 @@
 
 Este é um projeto de frontend utilizando React.js e Vite
 
+https://www.canva.com/design/DAGJRnfdH48/YYZ7cDrlwWO6OL2uyScacw/edit?utm_content=DAGJRnfdH48&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 ## Autores
 
 Este projeto foi desenvolvido por Gabriel Guzzatti e Gabriel Milano.
