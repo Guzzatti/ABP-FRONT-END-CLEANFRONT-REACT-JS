@@ -4,10 +4,9 @@ import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautif
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
-import Modal from 'react-modal';
 import './Dashboard.css';
+import EditModal from './EditModal';
 
-// Definições das interfaces
 interface Task {
   id: string;
   title: string;
@@ -28,7 +27,6 @@ interface InitialData {
   columnOrder: string[];
 }
 
-// Função para carregar as tarefas do localStorage
 const loadTasks = (loggedInUser: string | null): InitialData => {
   const savedData = localStorage.getItem(`${loggedInUser}-tasks`);
   return savedData
@@ -36,15 +34,14 @@ const loadTasks = (loggedInUser: string | null): InitialData => {
     : {
         tasks: {},
         columns: {
-          'column-1': { id: 'column-1', title: 'To Do', taskIds: [] },
-          'column-2': { id: 'column-2', title: 'In Progress', taskIds: [] },
-          'column-3': { id: 'column-3', title: 'Done', taskIds: [] },
+          'column-1': { id: 'column-1', title: 'A Fazer', taskIds: [] },
+          'column-2': { id: 'column-2', title: 'Em Progresso', taskIds: [] },
+          'column-3': { id: 'column-3', title: 'Concluído', taskIds: [] },
         },
         columnOrder: ['column-1', 'column-2', 'column-3'],
       };
 };
 
-// Componente Dashboard
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
@@ -94,7 +91,7 @@ const Dashboard: React.FC = () => {
     setEditModalOpen(true);
   };
 
-  const handleSaveEdit = () => {
+  const handleSaveEdit = (editedTask: Task) => {
     if (editedTask) {
       setData((prevData) => ({
         ...prevData,
@@ -153,6 +150,7 @@ const Dashboard: React.FC = () => {
     <div className="dashboard">
       <header className="dashboard-header">
         <h1>Dashboard</h1>
+        <button onClick={logout}>Logout</button>
         <div className="add-task">
           <input
             type="text"
@@ -171,6 +169,7 @@ const Dashboard: React.FC = () => {
           <input
             type="date"
             name="dueDate"
+            placeholder="Data de Vencimento"
             value={newTask.dueDate}
             onChange={handleInputChange}
           />
@@ -179,9 +178,8 @@ const Dashboard: React.FC = () => {
             <option value="medium">Média</option>
             <option value="high">Alta</option>
           </select>
-          <button onClick={handleCreateTask}>Criar Tarefa</button>
+          <button onClick={handleCreateTask}>Adicionar Tarefa</button>
         </div>
-        <button onClick={logout}>Logout</button>
       </header>
       <main className="dashboard-content">
         <DragDropContext onDragEnd={onDragEnd}>
@@ -195,22 +193,22 @@ const Dashboard: React.FC = () => {
                   <h3>{column.title}</h3>
                   <Droppable droppableId={column.id}>
                     {(provided) => (
-                      <div ref={provided.innerRef} {...provided.droppableProps} className="task-list">
+                      <div className="task-list" {...provided.droppableProps} ref={provided.innerRef}>
                         {tasks.map((task, index) => (
                           <Draggable key={task.id} draggableId={task.id} index={index}>
                             {(provided) => (
                               <div
+                                className="task"
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
                                 {...provided.dragHandleProps}
-                                className="task"
                               >
                                 <h4>{task.title}</h4>
                                 <p>{task.description}</p>
-                                <p>Due: {task.dueDate}</p>
-                                <p>Priority: {task.priority}</p>
-                                <button onClick={() => handleEditTask(task.id)}>Edit</button>
-                                <button onClick={() => handleDeleteTask(task.id, column.id)}>Delete</button>
+                                <p>Data de Vencimento: {task.dueDate}</p>
+                                <p>Prioridade: {task.priority}</p>
+                                <button onClick={() => handleEditTask(task.id)}>Editar</button>
+                                <button onClick={() => handleDeleteTask(task.id, column.id)}>Excluir</button>
                               </div>
                             )}
                           </Draggable>
@@ -226,49 +224,12 @@ const Dashboard: React.FC = () => {
         </DragDropContext>
       </main>
 
-      {/* Modal de Edição */}
-      <Modal
+      <EditModal
         isOpen={editModalOpen}
-        onRequestClose={() => setEditModalOpen(false)}
-        overlayClassName="modal-overlay"
-        className="modal-content"
-        contentLabel="Editar Tarefa"
-      >
-        {editedTask && (
-          <div>
-            <h2>Editar Tarefa</h2>
-            <input
-              type="text"
-              name="title"
-              value={editedTask.title}
-              onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
-            />
-            <input
-              type="text"
-              name="description"
-              value={editedTask.description}
-              onChange={(e) => setEditedTask({ ...editedTask, description: e.target.value })}
-            />
-            <input
-              type="date"
-              name="dueDate"
-              value={editedTask.dueDate}
-              onChange={(e) => setEditedTask({ ...editedTask, dueDate: e.target.value })}
-            />
-            <select
-              name="priority"
-              value={editedTask.priority}
-              onChange={(e) => setEditedTask({ ...editedTask, priority: e.target.value })}
-            >
-              <option value="low">Baixa</option>
-              <option value="medium">Média</option>
-              <option value="high">Alta</option>
-            </select>
-            <button onClick={handleSaveEdit}>Salvar</button>
-            <button onClick={() => setEditModalOpen(false)}>Cancelar</button>
-          </div>
-        )}
-      </Modal>
+        onClose={() => setEditModalOpen(false)}
+        editedTask={editedTask}
+        onEditTask={handleSaveEdit}
+      />
     </div>
   );
 };

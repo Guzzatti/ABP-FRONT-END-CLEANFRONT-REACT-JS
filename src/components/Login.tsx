@@ -1,6 +1,8 @@
+// src/components/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import './Login.css';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');

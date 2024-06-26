@@ -1,33 +1,50 @@
-/* src/components/Dashboard.css */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
 body {
   font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
 }
 
 .dashboard {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .dashboard-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   width: 100%;
   padding: 20px;
-  background-color: #282c34;
+  background-color: #727c8f;
   color: white;
+}
+
+.dashboard-header h1 {
+  margin-bottom: 20px;
 }
 
 .add-task {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
 }
 
-.add-task input, .add-task select, .add-task button {
+.add-task input,
+.add-task select,
+.add-task button {
   font-family: 'Montserrat', sans-serif;
+  padding: 10px;
 }
 
 .dashboard-content {
@@ -35,12 +52,16 @@ body {
   justify-content: center;
   align-items: flex-start;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .board {
   display: flex;
   gap: 20px;
   padding: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
 }
 
 .list {
@@ -51,12 +72,15 @@ body {
   padding: 10px;
   border-radius: 8px;
   min-width: 250px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .task-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
 .task {
@@ -64,10 +88,21 @@ body {
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.task h4 {
+  margin: 0;
+}
+
+.task p {
+  margin: 5px 0;
 }
 
 .task button {
   font-family: 'Montserrat', sans-serif;
+  margin-top: 10px;
 }
 
 .modal-overlay {
@@ -92,6 +127,20 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.edit-task input, .edit-task select, .edit-task button {
+.edit-task input,
+.edit-task select,
+.edit-task button {
   font-family: 'Montserrat', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .dashboard-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .add-task {
+    margin-bottom: 0;
+  }
 }

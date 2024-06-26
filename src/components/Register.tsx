@@ -1,5 +1,7 @@
+// src/components/Register.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Register.css';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -15,9 +17,9 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Registro</h2>
-      <form onSubmit={handleRegister}>
+      <form className="register-form" onSubmit={handleRegister}>
         <input
           type="text"
           placeholder="Usuário"
