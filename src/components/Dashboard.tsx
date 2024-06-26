@@ -1,8 +1,10 @@
+// src/components/Dashboard.tsx
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import './Dashboard.css';
 
 interface Task {
   id: string;
@@ -138,12 +140,8 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  if (!user) {
-    return <p>Loading...</p>; // You can replace this with a loading spinner or redirect
-  }
-
   return (
-    <div>
+    <div className="container">
       <div>
         <h3>Criar Tarefa</h3>
         <input type="text" name="title" placeholder="Título" value={newTask.title} onChange={handleInputChange} />

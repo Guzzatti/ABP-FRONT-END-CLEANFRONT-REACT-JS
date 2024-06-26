@@ -1,13 +1,13 @@
+// src/components/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../AuthContext';
+import './Login.css';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,7 +17,7 @@ const Login: React.FC = () => {
       const users = JSON.parse(storedUsers);
       const user = users[username];
       if (user && user === password) {
-        login(username);
+        localStorage.setItem('loggedInUser', username);
         navigate('/dashboard');
       } else {
         setError('Usuário ou senha incorretos');
@@ -28,9 +28,9 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"
