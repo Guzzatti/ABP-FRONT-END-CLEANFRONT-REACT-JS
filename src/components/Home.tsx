@@ -1,4 +1,3 @@
-// src/components/Home.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 

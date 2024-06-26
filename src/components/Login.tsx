@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,7 +17,7 @@ const Login: React.FC = () => {
       const users = JSON.parse(storedUsers);
       const user = users[username];
       if (user && user === password) {
-        localStorage.setItem('loggedInUser', username);
+        login(username);
         navigate('/dashboard');
       } else {
         setError('Usuário ou senha incorretos');
