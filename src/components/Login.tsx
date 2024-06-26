@@ -1,7 +1,7 @@
 // src/components/Login.tsx
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -18,7 +18,7 @@ const Login: React.FC = () => {
       const user = users[username];
       if (user && user === password) {
         localStorage.setItem('loggedInUser', username);
-        navigate('/dashboard');
+        navigate('/dashboard'); // Redireciona para a dashboard após o login
       } else {
         setError('Usuário ou senha incorretos');
       }
@@ -28,9 +28,9 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <div>
       <h2>Login</h2>
-      {error && <p className="error">{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="text"

@@ -1,10 +1,8 @@
-// src/components/Dashboard.tsx
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
-import './Dashboard.css';
 
 interface Task {
   id: string;
@@ -29,15 +27,17 @@ interface InitialData {
 const loadTasks = (): InitialData => {
   const loggedInUser = localStorage.getItem('loggedInUser');
   const savedData = localStorage.getItem(`${loggedInUser}-tasks`);
-  return savedData ? JSON.parse(savedData) : {
-    tasks: {},
-    columns: {
-      'column-1': { id: 'column-1', title: 'To Do', taskIds: [] },
-      'column-2': { id: 'column-2', title: 'In Progress', taskIds: [] },
-      'column-3': { id: 'column-3', title: 'Done', taskIds: [] },
-    },
-    columnOrder: ['column-1', 'column-2', 'column-3'],
-  };
+  return savedData
+    ? JSON.parse(savedData)
+    : {
+        tasks: {},
+        columns: {
+          'column-1': { id: 'column-1', title: 'To Do', taskIds: [] },
+          'column-2': { id: 'column-2', title: 'In Progress', taskIds: [] },
+          'column-3': { id: 'column-3', title: 'Done', taskIds: [] },
+        },
+        columnOrder: ['column-1', 'column-2', 'column-3'],
+      };
 };
 
 const Dashboard: React.FC = () => {
@@ -48,7 +48,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate('/');
+      navigate('/login');
     }
   }, [user, navigate]);
 
@@ -141,7 +141,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <div>
       <div>
         <h3>Criar Tarefa</h3>
         <input type="text" name="title" placeholder="Título" value={newTask.title} onChange={handleInputChange} />
@@ -152,7 +152,7 @@ const Dashboard: React.FC = () => {
           <option value="medium">Média</option>
           <option value="high">Alta</option>
         </select>
-        <button onClick={handleCreateTask}>Criar Tarefa</button>
+        <button onClick={() => handleCreateTask()}>Criar Tarefa</button>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="board">
@@ -194,7 +194,7 @@ const Dashboard: React.FC = () => {
           })}
         </div>
       </DragDropContext>
-      <button onClick={logout}>Logout</button>
+      <button onClick={() => logout()}>Logout</button>
     </div>
   );
 };
