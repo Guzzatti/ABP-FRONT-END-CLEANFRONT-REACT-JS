@@ -27,17 +27,15 @@ interface InitialData {
 const loadTasks = (): InitialData => {
   const loggedInUser = localStorage.getItem('loggedInUser');
   const savedData = localStorage.getItem(`${loggedInUser}-tasks`);
-  return savedData
-    ? JSON.parse(savedData)
-    : {
-        tasks: {},
-        columns: {
-          'column-1': { id: 'column-1', title: 'To Do', taskIds: [] },
-          'column-2': { id: 'column-2', title: 'In Progress', taskIds: [] },
-          'column-3': { id: 'column-3', title: 'Done', taskIds: [] },
-        },
-        columnOrder: ['column-1', 'column-2', 'column-3'],
-      };
+  return savedData ? JSON.parse(savedData) : {
+    tasks: {},
+    columns: {
+      'column-1': { id: 'column-1', title: 'To Do', taskIds: [] },
+      'column-2': { id: 'column-2', title: 'In Progress', taskIds: [] },
+      'column-3': { id: 'column-3', title: 'Done', taskIds: [] },
+    },
+    columnOrder: ['column-1', 'column-2', 'column-3'],
+  };
 };
 
 const Dashboard: React.FC = () => {
@@ -45,10 +43,11 @@ const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
   const [data, setData] = useState<InitialData>(loadTasks);
   const [newTask, setNewTask] = useState({ title: '', description: '', dueDate: '', priority: 'low' });
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) {
-      navigate('/login');
+      navigate('/');
     }
   }, [user, navigate]);
 
@@ -80,19 +79,25 @@ const Dashboard: React.FC = () => {
   };
 
   const handleEditTask = (taskId: string) => {
-    const task = data.tasks[taskId];
-    const updatedTask = {
-      ...task,
-      title: prompt('Edit Title', task.title) || task.title,
-      description: prompt('Edit Description', task.description) || task.description,
-      dueDate: prompt('Edit Due Date', task.dueDate) || task.dueDate,
-      priority: prompt('Edit Priority', task.priority) || task.priority,
-    };
+    setEditingTaskId(taskId);
+  };
 
+  const handleSaveEdit = (taskId: string) => {
     setData((prevData) => ({
       ...prevData,
-      tasks: { ...prevData.tasks, [taskId]: updatedTask },
+      tasks: {
+        ...prevData.tasks,
+        [taskId]: {
+          ...prevData.tasks[taskId],
+          title: newTask.title,
+          description: newTask.description,
+          dueDate: newTask.dueDate,
+          priority: newTask.priority,
+        },
+      },
     }));
+
+    setEditingTaskId(null); // Limpa o estado de edição
   };
 
   const handleDeleteTask = (taskId: string, columnId: string) => {
@@ -152,7 +157,7 @@ const Dashboard: React.FC = () => {
           <option value="medium">Média</option>
           <option value="high">Alta</option>
         </select>
-        <button onClick={() => handleCreateTask()}>Criar Tarefa</button>
+        <button onClick={handleCreateTask}>Criar Tarefa</button>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="board">
@@ -175,12 +180,28 @@ const Dashboard: React.FC = () => {
                               {...provided.dragHandleProps}
                               className="task"
                             >
-                              <h4>{task.title}</h4>
-                              <p>{task.description}</p>
-                              <p>Due: {task.dueDate}</p>
-                              <p>Priority: {task.priority}</p>
-                              <button onClick={() => handleEditTask(task.id)}>Edit</button>
-                              <button onClick={() => handleDeleteTask(task.id, column.id)}>Delete</button>
+                              {editingTaskId === task.id ? (
+                                <>
+                                  <input type="text" value={newTask.title} onChange={handleInputChange} name="title" />
+                                  <input type="text" value={newTask.description} onChange={handleInputChange} name="description" />
+                                  <input type="date" value={newTask.dueDate} onChange={handleInputChange} name="dueDate" />
+                                  <select value={newTask.priority} onChange={handleInputChange} name="priority">
+                                    <option value="low">Baixa</option>
+                                    <option value="medium">Média</option>
+                                    <option value="high">Alta</option>
+                                  </select>
+                                  <button onClick={() => handleSaveEdit(task.id)}>Salvar</button>
+                                </>
+                              ) : (
+                                <>
+                                  <h4>{task.title}</h4>
+                                  <p>{task.description}</p>
+                                  <p>Due: {task.dueDate}</p>
+                                  <p>Priority: {task.priority}</p>
+                                  <button onClick={() => handleEditTask(task.id)}>Editar</button>
+                                  <button onClick={() => handleDeleteTask(task.id, column.id)}>Excluir</button>
+                                </>
+                              )}
                             </div>
                           )}
                         </Draggable>
@@ -194,7 +215,7 @@ const Dashboard: React.FC = () => {
           })}
         </div>
       </DragDropContext>
-      <button onClick={() => logout()}>Logout</button>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 };
