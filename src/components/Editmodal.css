@@ -48,7 +48,7 @@
     width: calc(50% - 10px);
     padding: 10px;
     margin-top: 10px;
-    background-color: #007bff;
+    background-color: #a6a6a6;
     color: white;
     border: none;
     border-radius: 4px;
@@ -56,6 +56,6 @@
   }
   
   .edit-modal button:hover {
-    background-color: #0056b3;
+    background-color: #575757;
   }
   

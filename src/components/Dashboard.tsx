@@ -148,7 +148,7 @@ const Dashboard: React.FC = () => {
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>Dashboard</h1>
+        <h1>Cleanfront</h1>
         <button onClick={logout}>Logout</button>
         <div className="add-task">
           <input
