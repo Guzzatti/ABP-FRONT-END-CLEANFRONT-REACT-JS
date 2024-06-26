@@ -1,6 +1,7 @@
 // src/components/Register.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Register.css';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');
@@ -9,24 +10,16 @@ const Register: React.FC = () => {
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem('users') || '{}');
-    users[username] = password;
-    localStorage.setItem('users', JSON.stringify(users));
-    navigate('/'); // Navegar de volta para a página inicial após o registro
-  };
-
-  const handleGoToLogin = () => {
-    navigate('/login');
-  };
-
-  const handleGoToDashboard = () => {
-    navigate('/dashboard');
+    const storedUsers = JSON.parse(localStorage.getItem('users') || '{}');
+    storedUsers[username] = password;
+    localStorage.setItem('users', JSON.stringify(storedUsers));
+    navigate('/'); // Redireciona para a página inicial após o registro
   };
 
   return (
-    <div>
+    <div className="register-container">
       <h2>Registro</h2>
-      <form onSubmit={handleRegister}>
+      <form className="register-form" onSubmit={handleRegister}>
         <input
           type="text"
           placeholder="Usuário"
@@ -43,10 +36,6 @@ const Register: React.FC = () => {
         />
         <button type="submit">Registrar</button>
       </form>
-      <div>
-        <button onClick={handleGoToLogin}>Ir para Login</button>
-        <button onClick={handleGoToDashboard}>Ir para Dashboard</button>
-      </div>
     </div>
   );
 };

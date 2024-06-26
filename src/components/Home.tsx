@@ -1,12 +1,13 @@
 // src/components/Home.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Home.css';
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="container">
       <h1>Bem-vindo ao Gerenciador de Tarefas</h1>
       <p>Organize suas tarefas de forma eficiente</p>
       <button onClick={() => navigate('/login')}>Login</button>

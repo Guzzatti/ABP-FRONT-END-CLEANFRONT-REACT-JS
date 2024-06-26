@@ -1,35 +1,34 @@
+// src/components/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
+import './Login.css';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const storedUsers = localStorage.getItem('users');
-    if (storedUsers) {
-      const users = JSON.parse(storedUsers);
-      const user = users[username];
-      if (user && user === password) {
-        localStorage.setItem('loggedInUser', username);
-        navigate('/dashboard');
-      } else {
-        setError('Usuário ou senha incorretos');
-      }
+    const storedUsers = JSON.parse(localStorage.getItem('users') || '{}');
+    const user = storedUsers[username];
+    if (user && user === password) {
+      login(username);
+      navigate('/dashboard');
     } else {
-      setError('Usuário não encontrado');
+      setError('Usuário ou senha incorretos');
     }
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      {error && <p className="error-message">{error}</p>}
+      <form className="login-form" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Usuário"
@@ -46,7 +45,9 @@ const Login: React.FC = () => {
         />
         <button type="submit">Entrar</button>
       </form>
-      <button onClick={() => navigate('/register')}>Registrar</button>
+      <button className="register-button" onClick={() => navigate('/register')}>
+        Registrar
+      </button>
     </div>
   );
 };
