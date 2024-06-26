@@ -1,173 +1,97 @@
 /* src/components/Dashboard.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
-.container {
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  .board {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 20px;
-    padding: 10px;
-    background-color: #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow-x: auto; /* Rolar horizontalmente apenas quando necessário */
-    max-width: 100%; /* Ajuste máximo para o tamanho do conteúdo */
-  }
-  
-  .list {
-    flex: 0 0 300px; /* Largura fixa das colunas (lists) */
-    min-width: 300px; /* Largura mínima das colunas */
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 10px;
-  }
-  
-  .list-header {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .task-list {
-    min-height: 100px; /* Altura mínima da lista de tarefas */
-  }
-  
-  .task {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .task h4 {
-    font-size: 1.1rem;
-    margin-bottom: 5px;
-  }
-  
-  .task p {
-    margin: 5px 0;
-  }
-  
-  .task button {
-    padding: 8px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .task button:hover {
-    background-color: #0056b3;
-  }
-  
-  .task-inputs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .task-inputs input,
-  .task-inputs select {
-    flex: 1 1 100%; /* Expande para ocupar todo o espaço disponível */
-    max-width: 100%; /* Ajusta para o tamanho disponível */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .task-inputs button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .task-inputs button:hover {
-    background-color: #218838;
-  }
-  
-  .logout-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .logout-btn:hover {
-    background-color: #c82333;
-  }
-  
-  /* Estilos para o overlay do modal */
-  .ReactModal__Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
-    z-index: 1000; /* Z-index alto para sobrepor o conteúdo */
-  }
-  
-  /* Estilos para o conteúdo do modal */
-  .ReactModal__Content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 300px; /* Largura do modal */
-    max-width: calc(100% - 40px); /* Largura máxima ajustada para o tamanho do conteúdo */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Estilos para os botões dentro do modal */
-  .modal-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-  }
-  
-  .modal-buttons button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .modal-buttons button:hover {
-    background-color: #0056b3;
-  }
-  
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  background-color: #282c34;
+  color: white;
+}
+
+.add-task {
+  display: flex;
+  gap: 10px;
+}
+
+.add-task input, .add-task select, .add-task button {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.dashboard-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.board {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 8px;
+  min-width: 250px;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task {
+  background-color: white;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task button {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.edit-task {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-task input, .edit-task select, .edit-task button {
+  font-family: 'Montserrat', sans-serif;
+}

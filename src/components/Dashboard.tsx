@@ -1,10 +1,13 @@
+// src/components/Dashboard.tsx
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import Modal from 'react-modal';
+import './Dashboard.css';
 
+// Definições das interfaces
 interface Task {
   id: string;
   title: string;
@@ -25,6 +28,7 @@ interface InitialData {
   columnOrder: string[];
 }
 
+// Função para carregar as tarefas do localStorage
 const loadTasks = (loggedInUser: string | null): InitialData => {
   const savedData = localStorage.getItem(`${loggedInUser}-tasks`);
   return savedData
@@ -40,18 +44,11 @@ const loadTasks = (loggedInUser: string | null): InitialData => {
       };
 };
 
+// Componente Dashboard
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-  const [data, setData] = useState<InitialData>({
-    tasks: {},
-    columns: {
-      'column-1': { id: 'column-1', title: 'To Do', taskIds: [] },
-      'column-2': { id: 'column-2', title: 'In Progress', taskIds: [] },
-      'column-3': { id: 'column-3', title: 'Done', taskIds: [] },
-    },
-    columnOrder: ['column-1', 'column-2', 'column-3'],
-  });
+  const [data, setData] = useState<InitialData>(loadTasks(user));
   const [newTask, setNewTask] = useState({ title: '', description: '', dueDate: '', priority: 'low' });
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [editedTask, setEditedTask] = useState<Task | null>(null);
@@ -268,6 +265,7 @@ const Dashboard: React.FC = () => {
               <option value="high">Alta</option>
             </select>
             <button onClick={handleSaveEdit}>Salvar</button>
+            <button onClick={() => setEditModalOpen(false)}>Cancelar</button>
           </div>
         )}
       </Modal>

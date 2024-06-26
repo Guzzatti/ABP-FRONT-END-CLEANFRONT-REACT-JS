@@ -1,0 +1,37 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75); /* Fundo escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Certifique-se de que o z-index seja alto o suficiente */
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
+    z-index: 1001; /* Certifique-se de que o z-index seja maior que o da overlay */
+  }
+  
+  .task-list {
+    min-height: 200px; /* Garante que as listas tenham altura mínima */
+    background: #f4f4f4; /* Cor de fundo das listas */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .task {
+    background: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+  
