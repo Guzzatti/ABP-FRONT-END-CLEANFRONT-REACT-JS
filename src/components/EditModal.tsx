@@ -1,6 +1,6 @@
 // src/components/EditModal.tsx
 import React from 'react';
-import './EditModal.css';
+import './Editmodal.css';
 
 interface EditModalProps {
   isOpen: boolean;
