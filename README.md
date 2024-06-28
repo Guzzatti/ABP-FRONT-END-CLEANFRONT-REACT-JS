@@ -4,28 +4,18 @@
 
 Este é um projeto de frontend utilizando React.js e Vite
 
-https://www.canva.com/design/DAGJRnfdH48/YYZ7cDrlwWO6OL2uyScacw/edit?utm_content=DAGJRnfdH48&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
-
 ## Autores
 
 Este projeto foi desenvolvido por Gabriel Guzzatti e Gabriel Milano.
 
-## Professor Orientador
-
-Lucas Ferreira
-
 
 ## Sobre o Projeto
 
-Este projeto é uma aplicação de página única (SPA) que utiliza Next.js para o frontend. O objetivo é demonstrar o uso de Next.js, Prisma e outras tecnologias frontend para criar um aplicativo web com funcionalidades básicas de CRUD.
+Este projeto é uma aplicação de página única (SPA) que utiliza Next.js para o frontend. O objetivo é demonstrar o uso de Next.js e outras tecnologias frontend para criar um aplicativo web com funcionalidades básicas de CRUD.
 
 ## Descrição do Projeto
 
-O Cleanfront é uma plataforma de gerenciamento de tarefas e atividades, focada na simplicidade e na facilidade de uso. Com uma interface limpa e intuitiva, o Cleanfront permite aos usuários organizar suas tarefas, criar listas de afazeres e acompanhar o progresso de seus projetos de forma eficiente.
-
-## Objetivo do Projeto
-
-O Cleanfront busca oferecer uma solução completa para o gerenciamento de tarefas e projetos, simplificando a organização do dia a dia dos usuários. Nosso objetivo é proporcionar uma experiência descomplicada e eficaz, permitindo que os usuários aumentem sua produtividade e tenham maior controle sobre suas atividades diárias.
+O Cleanfront é uma plataforma de gerenciamento de tarefas e atividades, focada na simplicidade e na facilidade de uso. com o objetivo de coordenar Atividades durante Crises Climáticas.
 
 ## Estrutura do Projeto
 
@@ -54,9 +44,9 @@ O Cleanfront é direcionado a profissionais e equipes que buscam uma maneira efi
 
 ## Funcionalidades
 
-- Tela de login e senha (fake)
+- Tela de login e senha com autenticação
 - Tela de dashboard após o login
-- Dois sistemas básicos de CRUD
+- CRUD de gerenciamento de atividades
 
 ## Tecnologias Utilizadas
 
@@ -73,22 +63,3 @@ Para executar este projeto localmente, siga as instruções abaixo:
 1. Clone este repositório:
 
 git clone <https://github.com/Guzzatti/ABP-Front-End-Cleanfront>
-
-
-2. Navegue até o diretório do projeto:
-
-cd cleanfront
-
-
-3. Instale as dependências:
-
-npm install
-
-
-4. Execute o servidor de desenvolvimento:
-
-npm run dev
-
-
-O servidor será iniciado em [http://localhost:3000](http://localhost:3000).
-
